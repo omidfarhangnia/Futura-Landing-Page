@@ -1,16 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css" />
     <title>FUTURA</title>
-</head>
-<body>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div id="logo"></div>
+        <nav>
+            <ul>
+                <li><a href="#">home</a></li>
+                <li><a href="#">stories</a></li>
+                <li><a href="#">works</a></li>
+                <li><a href="#">pages</a></li>
+                <li><a href="#">contact</a></li>
+                <li><a href="#">shop</a></li>
+            </ul>
+        </nav>
+        <div class="">
+            <ul>
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+                        <path d="M10.9375 0C4.90625 0 0 4.90625 0 10.9375C0 16.9688 4.90625 21.875 10.9375 21.875C12.7812 21.875 14.5937 21.4375 16.125 20.5938C16.2477 20.7414 16.3836 20.8773 16.5312 21L19.6562 24.125C19.9448 24.4497 20.2967 24.712 20.6903 24.8958C21.0839 25.0795 21.5108 25.1809 21.945 25.1937C22.3792 25.2065 22.8115 25.1304 23.2152 24.9701C23.6189 24.8098 23.9856 24.5686 24.2927 24.2615C24.5999 23.9543 24.841 23.5876 25.0013 23.1839C25.1616 22.7802 25.2377 22.348 25.225 21.9138C25.2122 21.4796 25.1108 21.0526 24.927 20.659C24.7432 20.2654 24.4809 19.9136 24.1562 19.625L21.0312 16.5C20.879 16.3477 20.7115 16.2116 20.5312 16.0938C21.375 14.5625 21.9062 12.7812 21.9062 10.9062C21.9062 4.875 17 -0.03125 10.9688 -0.03125L10.9375 0ZM10.9375 3.125C15.2812 3.125 18.75 6.59375 18.75 10.9375C18.75 13 18 14.9062 16.6875 16.3125C16.6562 16.3438 16.625 16.375 16.5938 16.4062C16.4461 16.5289 16.3102 16.6649 16.1875 16.8125C14.8125 18.0625 12.9375 18.7813 10.9062 18.7813C6.5625 18.7813 3.09375 15.3125 3.09375 10.9688C3.09375 6.625 6.5625 3.15625 10.9062 3.15625L10.9375 3.125Z" fill="white"/>
+                    </svg>
+                </li>
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+                        <path d="M12.5 20.3726C11.9892 20.3726 11.5745 20.7873 11.5745 21.2981V24.0745C11.5745 24.5853 11.9892 25 12.5 25C13.0108 25 13.4255 24.5853 13.4255 24.0745V21.2981C13.4255 20.7873 13.0108 20.3726 12.5 20.3726ZM12.5 0C11.9892 0 11.5745 0.414664 11.5745 0.925481V3.70192C11.5745 4.21274 11.9892 4.6274 12.5 4.6274C13.0108 4.6274 13.4255 4.21274 13.4255 3.70192V0.925481C13.4255 0.414664 13.0108 0 12.5 0ZM4.6274 12.5C4.6274 11.9892 4.21274 11.5745 3.70192 11.5745H0.925481C0.414664 11.5745 0 11.9892 0 12.5C0 13.0108 0.414664 13.4255 0.925481 13.4255H3.70192C4.21274 13.4255 4.6274 13.0108 4.6274 12.5ZM24.0745 11.5745H21.2981C20.7873 11.5745 20.3726 11.9892 20.3726 12.5C20.3726 13.0108 20.7873 13.4255 21.2981 13.4255H24.0745C24.5853 13.4255 25 13.0108 25 12.5C25 11.9892 24.5853 11.5745 24.0745 11.5745ZM6.28005 17.7945C6.03365 17.7945 5.79928 17.8906 5.625 18.0649L3.65986 20.03C3.48558 20.2043 3.38942 20.4387 3.38942 20.6851C3.38942 20.9315 3.48558 21.1659 3.65986 21.3401C3.83413 21.5144 4.06851 21.6106 4.3149 21.6106C4.5613 21.6106 4.79567 21.5144 4.96995 21.3401L6.9351 19.375C7.29567 19.0144 7.29567 18.4255 6.9351 18.0649C6.76082 17.8906 6.52644 17.7945 6.28005 17.7945ZM18.72 7.20553C18.9663 7.20553 19.2007 7.10937 19.375 6.9351L21.3401 4.96995C21.5144 4.79567 21.6106 4.5613 21.6106 4.3149C21.6106 4.06851 21.5144 3.83413 21.3401 3.65986C21.1659 3.48558 20.9315 3.38942 20.6851 3.38942C20.4387 3.38942 20.2043 3.48558 20.03 3.65986L18.0649 5.625C17.8906 5.79928 17.7945 6.03365 17.7945 6.28005C17.7945 6.52644 17.8906 6.76082 18.0649 6.9351C18.2392 7.10937 18.4736 7.20553 18.72 7.20553ZM4.96995 3.65986C4.79567 3.48558 4.5613 3.38942 4.3149 3.38942C4.06851 3.38942 3.83413 3.48558 3.65986 3.65986C3.48558 3.83413 3.38942 4.06851 3.38942 4.3149C3.38942 4.5613 3.48558 4.79567 3.65986 4.96995L5.625 6.9351C5.79928 7.10937 6.03365 7.20553 6.28005 7.20553C6.52644 7.20553 6.76082 7.10937 6.9351 6.9351C7.10937 6.76082 7.20553 6.52644 7.20553 6.28005C7.20553 6.03365 7.10937 5.79928 6.9351 5.625L4.96995 3.65986ZM19.375 18.0649C19.2007 17.8906 18.9663 17.7945 18.72 17.7945C18.4736 17.7945 18.2392 17.8906 18.0649 18.0649C17.7043 18.4255 17.7043 19.0144 18.0649 19.375L20.03 21.3401C20.2043 21.5144 20.4387 21.6106 20.6851 21.6106C20.9315 21.6106 21.1659 21.5144 21.3401 21.3401C21.5144 21.1659 21.6106 20.9315 21.6106 20.6851C21.6106 20.4387 21.5144 20.2043 21.3401 20.03L19.375 18.0649ZM12.5 6.73077C9.32091 6.73077 6.73077 9.32091 6.73077 12.5C6.73077 15.6791 9.32091 18.2692 12.5 18.2692C15.6791 18.2692 18.2692 15.6791 18.2692 12.5C18.2692 9.32091 15.6791 6.73077 12.5 6.73077Z" fill="white"/>
+                        </svg>
+                </li>
+                <li class="burger__menu">
+                    <div class="burger__menu--layers"></div>
+                    <div class="burger__menu--layers"></div>
+                    <div class="burger__menu--layers"></div>
+                </li>
+            </ul>
+        </div>
+      </header>
+
+      <section class="section section__design">
+        <h4 class="section__design--h4">our vision</h4>
+        <h1 class="section__design--h1">design</h1>
+        <p class="section__design--p">
+          It is a long established fact that a reader will be distracted by the
+          readable content of a page when looking at its layout. The point of
+          using Lorem Ipsum.
+        </p>
+        <button class="section__design--btn">
+            <a href="#" class="section__design--link">take a look</a>
+        </button>
+      </section>
+
+      <section class="section section__motion">
+        <h4 class="section__motion--h4">our vision</h4>
+        <h1 class="section__motion--h1">motion</h1>
+        <p class="section__motion--p">
+          It is a long established fact that a reader will be distracted by the
+          readable content of a page when looking at its layout. The point of
+          using Lorem Ipsum.
+        </p>
+        <button class="section__motion--btn">
+            <a href="#" class="section__motion--link">take a look</a>
+        </button>
+      </section>
+
+      <section class="section section__engine">
+        <h4 class="section__engine--h4">our vision</h4>
+        <h1 class="section__engine--h1">engine</h1>
+        <p class="section__engine--p">
+          It is a long established fact that a reader will be distracted by the
+          readable content of a page when looking at its layout. The point of
+          using Lorem Ipsum.
+        </p>
+        <button class="section__engine--btn">
+            <a href="#" class="section__engine--link">take a look</a>
+        </button>
+      </section>
+    </div>
+    <script src="./js/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
-    <script src="./js/gsap__file.js"></script>
-</body>
+    <script src="./js/script.js"></script>
+  </body>
 </html>
