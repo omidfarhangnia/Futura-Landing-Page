@@ -125,7 +125,7 @@ const EXIT__BTN = document.querySelector('.exit__btn');
 
 let offcanvasRise = gsap.to(".divide__container", {
     top: 0,
-    duration: 3,
+    duration: 2,
     ease: "power4.out",
 }).pause();
 
@@ -139,14 +139,14 @@ var offcanvasAnime = gsap.to(".custom-shape-divider-bottom", {
 
 BURGER__MENU.addEventListener('click', () => {
     if(offcanvasRise.paused() || offcanvasRise.reversed()){
-        offcanvasRise.restart().delay(1);
-        offcanvasAnime.restart().delay(2);
+        offcanvasRise.restart();
+        offcanvasAnime.restart();
     }
 });
 
 EXIT__BTN.addEventListener('click', () => {
     offcanvasAnime.pause();
-    offcanvasRise.reverse().delay(1);
+    offcanvasRise.reverse();
 });
 
 // 
