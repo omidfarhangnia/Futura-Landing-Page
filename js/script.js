@@ -67,10 +67,10 @@ links.forEach((element) => {
         let children = element.querySelectorAll("span");
         hoverAnime = gsap.to(children, {
             keyframes: {
-                y: [0, -30, 0]
+                y: [0, -9, 0]
             },
-            stagger: .05,
-            duration: .5,
+            stagger: .1,
+            // duration: 1,
             ease: "power4.out"
         })
     })
