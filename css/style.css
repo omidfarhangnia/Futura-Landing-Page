@@ -165,7 +165,7 @@ table {
   padding: 0;
 }
 
-body {
+.container__parent {
   overflow-x: hidden;
 }
 
