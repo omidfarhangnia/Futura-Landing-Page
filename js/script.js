@@ -1,7 +1,14 @@
+// 
+// adding plugin to page
+//
+
 gsap.registerPlugin(ScrollTrigger);
 
-let sections = gsap.utils.toArray(".section");
+//
+// animation for page 
+//
 
+let sections = gsap.utils.toArray(".section");
 
 gsap.to(sections, {
     xPercent: -100 * (sections.length - 1),
@@ -9,11 +16,15 @@ gsap.to(sections, {
     scrollTrigger: {
         trigger: ".container",
         pin: true,
-        scrub: 1,
+        scrub: 2,
         snap: 1 / (sections.length - 1),
         end: "+=3500",
     }
-})
+});
+
+//
+// burger menu events animation
+//
 
 const BURGER__MENU = document.querySelector('.burger__menu');
 const EXIT__BTN = document.querySelector('.exit__btn');
@@ -44,7 +55,9 @@ EXIT__BTN.addEventListener('click', () => {
     offcanvasRise.reverse().delay(1);
 });
 
+// 
 // links hover animation 
+// 
 
 let links = document.querySelectorAll(".header .links"), hoverAnime;
 
