@@ -1,10 +1,43 @@
 @import "./reset";
 @import "./divider-style";
 
-
 *{
     margin: 0;
     padding: 0;
+}
+
+.user__help{
+    display: none;
+    position: fixed;
+    left: calc(27vw - 5px);
+    bottom: 20vh;
+    padding: 10px 5px;
+    @media (min-width: 900px) {
+        display: block;
+    }
+}
+
+.go__down,
+.go__up{
+    color: #ffffff;
+    font-family: $roboto__font;
+    display: none;
+    width: 50vw;
+    justify-content: center;
+    align-items: center;
+    span{
+        font-size: 17px;
+        text-transform: capitalize;
+        margin-right: 5px;
+    }
+    svg{
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.user__help--active{
+    display: flex;
 }
 
 .container__parent{
@@ -176,11 +209,10 @@
     height: 100vh;
     background-size: cover;
     background-position: 50%;
-    padding: 100px 50px;
+    padding: 130px 50px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     gap: 20px;
     &--h4,
     &--h1,
@@ -193,6 +225,8 @@
     }
     @media (min-width: 900px) {
         gap: 45px;
+        padding: 100px 50px;
+        justify-content: center;
     }
 }
 
@@ -219,7 +253,6 @@
     font-family: $roboto__font;
     font-size: 16px;
     line-height: 30px;
-    width: 80%;
     text-align: justify;
     max-width: 515px;
     @media (min-width: 900px) {

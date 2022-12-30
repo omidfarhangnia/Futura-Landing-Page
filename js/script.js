@@ -8,19 +8,113 @@ gsap.registerPlugin(ScrollTrigger);
 // animation for page 
 //
 
-let sections = gsap.utils.toArray(".section");
+let sections = gsap.utils.toArray(".section"), currentPercentProgress = 0, 
+lastScrollTop = 0, 
+tl,
+currentSection = 1,
+jumpUp = "+=100",
+jumpDown = "-=100";
 
-gsap.to(sections, {
-    xPercent: -100 * (sections.length - 1),
-    ease: "none", 
-    scrollTrigger: {
-        trigger: ".container",
-        pin: true,
-        scrub: 2,
-        snap: 1 / (sections.length - 1),
-        end: "+=3500",
+const GO__DOWN = document.querySelector(".go__down"),
+      GO__UP = document.querySelector(".go__up")
+      mm = gsap.matchMedia();
+
+mm.add("(max-width: 900px)", () => {
+    window.addEventListener('scroll', () => sectionAnimation.checkPos())
+    gsap.set(".container__parent", {
+        height: "300vh"
+    })
+    gsap.set(".container", {
+        position: "fixed",
+        top: 0,
+        left: 0
+    })
+    const sectionAnimation = {
+        next: () => {
+            if(tl && tl.isActive()) return;
+
+            tl = gsap.to(sections, {
+                xPercent: jumpDown,
+                ease: "linear", 
+                duration: .5,
+                onComplete: () => {
+                    currentSection++;
+                    if(currentSection == 4){
+                        currentSection = 3
+                    }
+                    if(currentSection == 3){
+                        jumpDown = "-=0";
+                    }else{
+                        jumpDown = "-=100";
+                    }
+                }
+            }).pause();
+
+            tl.restart();
+        },
+        prevues: () => {
+            if(tl && tl.isActive()) return;
+
+            tl = gsap.to(sections, {
+                xPercent: jumpUp,
+                ease: "linear", 
+                duration: .5,
+                onComplete: () => {
+                    currentSection--;
+                    if(currentSection == 0){
+                        currentSection = 1;
+                    }
+                    if(currentSection == 1){
+                        jumpUp = "+=0";
+                    }else{
+                        jumpUp = "+=100";
+                    }
+                }
+            }).pause();
+
+            tl.restart();
+        },
+        checkPos: () => {
+            let currentScrollPos = document.documentElement.scrollTop;
+            if(currentScrollPos > lastScrollTop){
+                sectionAnimation.next()
+            }else{
+                sectionAnimation.prevues()
+            }
+            lastScrollTop = currentScrollPos;
+        },
     }
-});
+})
+
+mm.add("(min-width: 900px)", () => {
+    gsap.to(sections, {
+        xPercent: -100 * (sections.length - 1),
+        ease: "none", 
+        scrollTrigger: {
+            trigger: ".container",
+            pin: true,
+            scrub: 2,
+            snap: 1 / (sections.length - 1),
+            end: "+=3500",
+            onUpdate: (self) => {
+                currentPercentProgress = self.progress.toFixed(2) * 100
+                
+                if(currentPercentProgress < 15){
+                    GO__DOWN.classList.add("user__help--active");
+                    GO__UP.classList.remove("user__help--active");
+                }else if(currentPercentProgress > 85){
+                    GO__UP.classList.add("user__help--active");
+                    GO__DOWN.classList.remove("user__help--active");
+                }else{
+                    GO__UP.classList.remove("user__help--active");
+                    GO__DOWN.classList.remove("user__help--active");
+    
+                }
+                
+            },
+        }
+    });
+})
 
 //
 // burger menu events animation
@@ -74,4 +168,31 @@ links.forEach((element) => {
             ease: "power4.out"
         })
     })
+})
+
+// 
+// user help animation
+// 
+
+gsap.set([".go__down svg", ".go__up svg"], {y: 0})
+
+let goDownAnime = gsap.to(".go__down svg", {
+    keyframes: {
+        y: [0, 10, 0]
+    },
+    stagger: .3,
+    duration: 1,
+    ease: "power4.out",
+    repeat: -1,
+})
+
+
+let goUpAnime = gsap.to(".go__up svg", {
+    keyframes: {
+        y: [0, -10, 0]
+    },
+    stagger: .3,
+    duration: 1,
+    ease: "power4.out",
+    repeat: -1,
 })

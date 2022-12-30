@@ -51,6 +51,10 @@ table {
   border-spacing: 0;
 }
 
+::-webkit-scrollbar {
+  width: 0;
+}
+
 .divide__container {
   width: 100%;
   height: 100vh;
@@ -163,6 +167,44 @@ table {
 * {
   margin: 0;
   padding: 0;
+}
+
+.user__help {
+  display: none;
+  position: fixed;
+  left: calc(27vw - 5px);
+  bottom: 20vh;
+  padding: 10px 5px;
+}
+@media (min-width: 900px) {
+  .user__help {
+    display: block;
+  }
+}
+
+.go__down,
+.go__up {
+  color: #ffffff;
+  font-family: "Roboto", "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  display: none;
+  width: 50vw;
+  justify-content: center;
+  align-items: center;
+}
+.go__down span,
+.go__up span {
+  font-size: 17px;
+  text-transform: capitalize;
+  margin-right: 5px;
+}
+.go__down svg,
+.go__up svg {
+  width: 20px;
+  height: 20px;
+}
+
+.user__help--active {
+  display: flex;
 }
 
 .container__parent {
@@ -331,11 +373,10 @@ table {
   height: 100vh;
   background-size: cover;
   background-position: 50%;
-  padding: 100px 50px;
+  padding: 130px 50px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: 20px;
 }
 .section--h4, .section--h1, .section--p, .section--link {
@@ -347,6 +388,8 @@ table {
 @media (min-width: 900px) {
   .section {
     gap: 45px;
+    padding: 100px 50px;
+    justify-content: center;
   }
 }
 
@@ -377,7 +420,6 @@ table {
   font-family: "Roboto", "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   font-size: 16px;
   line-height: 30px;
-  width: 80%;
   text-align: justify;
   max-width: 515px;
 }
