@@ -20,7 +20,6 @@ const GO__DOWN = document.querySelector(".go__down"),
       mm = gsap.matchMedia();
 
 mm.add("(max-width: 900px)", () => {
-    window.addEventListener('scroll', () => sectionAnimation.checkPos())
     gsap.set(".container__parent", {
         height: "300vh"
     })
@@ -33,57 +32,40 @@ mm.add("(max-width: 900px)", () => {
         next: () => {
             if(tl && tl.isActive()) return;
 
+            if(currentSection == 3) return;
+
             tl = gsap.to(sections, {
                 xPercent: jumpDown,
                 ease: "linear", 
-                duration: .5,
-                onComplete: () => {
-                    currentSection++;
-                    if(currentSection == 4){
-                        currentSection = 3
-                    }
-                    if(currentSection == 3){
-                        jumpDown = "-=0";
-                    }else{
-                        jumpDown = "-=100";
-                    }
-                }
-            }).pause();
+                duration: 2,
+            });
 
-            tl.restart();
+            currentSection++;
         },
         prevues: () => {
             if(tl && tl.isActive()) return;
 
+            if(currentSection == 1) return;
+
             tl = gsap.to(sections, {
                 xPercent: jumpUp,
                 ease: "linear", 
-                duration: .5,
-                onComplete: () => {
-                    currentSection--;
-                    if(currentSection == 0){
-                        currentSection = 1;
-                    }
-                    if(currentSection == 1){
-                        jumpUp = "+=0";
-                    }else{
-                        jumpUp = "+=100";
-                    }
-                }
-            }).pause();
+                duration: 2,
+            })
 
-            tl.restart();
+            currentSection--;
         },
         checkPos: () => {
             let currentScrollPos = document.documentElement.scrollTop;
             if(currentScrollPos > lastScrollTop){
                 sectionAnimation.next()
-            }else{
+            }else if(currentScrollPos < lastScrollTop){
                 sectionAnimation.prevues()
             }
             lastScrollTop = currentScrollPos;
         },
     }
+    window.addEventListener('scroll', () => sectionAnimation.checkPos())
 })
 
 mm.add("(min-width: 900px)", () => {
