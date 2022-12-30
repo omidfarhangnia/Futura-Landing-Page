@@ -21,10 +21,9 @@ body{
 .header{
     position: fixed;
     top: 0;
-    left: 10vw;
-    width: 80vw;
+    left: 5vw;
+    width: 90vw;
     z-index: 2;
-    background: black;
     padding: 30px 0;
     align-items: center;
     display: flex;
@@ -160,20 +159,91 @@ body{
 }
 
 
+.section__design{
+    background-image: url("../image/first-image-of-galaxy.jpg");
+}
+
+.section__motion{
+    background-image: url("../image/second-image-of-galaxy.jpg");
+}
+
+.section__engine{
+    background-image: url("../image/third-image-of-galaxy.jpg");
+}
 
 .section{
     width: 100%;
     height: 100vh;
+    background-size: cover;
+    background-position: 50%;
+    padding: 100px 50px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    &--h4,
+    &--h1,
+    &--p,
+    &--link{
+        color: #ffffff;
+    }
+    &--link{
+        text-decoration: none;
+    }
+    @media (min-width: 900px) {
+        gap: 45px;
+    }
 }
 
-.section__design{
-    background: red;
+.section--h4{
+    font-family: $roboto__font;
+    font-weight: bold;
+    font-size: 20px;
+    text-transform: uppercase;
+    @media (min-width: 900px) {
+        font-size: 25px;
+    }
 }
 
-.section__motion{
-    background: purple;
+.section--h1{
+    font-size: 70px;
+    font-family: $viga__font;
+    text-transform: uppercase;
+    @media (min-width: 900px) {
+        font-size: 140px;
+    }
 }
 
-.section__engine{
-    background: black;
+.section--p{
+    font-family: $roboto__font;
+    font-size: 16px;
+    line-height: 30px;
+    width: 80%;
+    text-align: justify;
+    max-width: 515px;
+    @media (min-width: 900px) {
+        font-size: 20px;
+    }
+}
+
+.section--link{
+    font-family: $roboto__font;
+    font-size: 18.4px;
+    text-transform: capitalize;
+    display: inline-block;
+    padding: 6px 0;
+    border-bottom: 1px solid #ffffff;
+    @media (min-width: 900px) {
+        font-size: 23px;
+        border-bottom: 2px solid #ffffff;
+    }
+}
+
+.section--takeALook{
+    list-style-type: "o";
+    font-size: 20px;
+    color: #ffffff;
+    font-family: $montserrat__font;
+    list-style-position: inside;
 }
