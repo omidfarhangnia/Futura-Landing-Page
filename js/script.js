@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 //
 
 let sections = gsap.utils.toArray(".section"), currentPercentProgress = 0, 
-lastScrollTop = 0, 
+lastScrollTop = document.documentElement.scrollTop, 
 tl,
 currentSection = 1,
 jumpUp = "+=100",
@@ -37,7 +37,7 @@ mm.add("(max-width: 900px)", () => {
             tl = gsap.to(sections, {
                 xPercent: jumpDown,
                 ease: "linear", 
-                duration: 2,
+                duration: 1,
             });
 
             currentSection++;
@@ -50,7 +50,7 @@ mm.add("(max-width: 900px)", () => {
             tl = gsap.to(sections, {
                 xPercent: jumpUp,
                 ease: "linear", 
-                duration: 2,
+                duration: 1,
             })
 
             currentSection--;
