@@ -8,12 +8,20 @@ gsap.registerPlugin(ScrollTrigger);
 // animation for page 
 //
 
-let sections = gsap.utils.toArray(".section"), currentPercentProgress = 0, 
+let sections = gsap.utils.toArray(".section"), 
+    scrollHandles = gsap.utils.toArray(".scroll__handles"),
+currentPercentProgress = 0, 
 lastScrollTop = 0, 
-tl,
+nextAnimation,
+prevAnimation,
+lastPosWithOutMove,
 currentSection = 1,
 jumpUp = "+=100",
 jumpDown = "-=100";
+
+window.addEventListener("load", () => {
+    lastScrollTop = document.documentElement.scrollTop;
+})
 
 const GO__DOWN = document.querySelector(".go__down"),
       GO__UP = document.querySelector(".go__up");
@@ -22,6 +30,10 @@ const GO__DOWN = document.querySelector(".go__down"),
       height: "300vh"
     })
 
+    gsap.set(GO__UP, {
+        opacity: 0
+    })
+      
     gsap.set(".container", {
       position: "fixed",
       top: 0,
@@ -30,74 +42,44 @@ const GO__DOWN = document.querySelector(".go__down"),
 
     const sectionAnimation = {
         next: () => {
-            if(currentSection == 3) return;
+            if(currentSection === 3) return;
 
-            sectionAnimation.textAnime()
-
-            tl = gsap.to(sections, {
+            sectionAnimation.textAnime();
+            sectionAnimation.scrollHandleAnime(false);      
+            
+            nextAnimation = gsap.to(sections, {
                 xPercent: jumpDown,
                 ease: "power3.in", 
                 duration: 1.5,
-                delay: 1,
-                onComplete: () => {
-                    currentSection++;
-                    console.log(currentSection);
-                }
+                delay: 1
             });
-            // if(currentSection == 3){
-            //     GO__UP.classList.add("user__help--active");
-            // }else if(currentSection == 2){
-            //     GO__UP.classList.remove("user__help--active");
-            //     GO__DOWN.classList.remove("user__help--active");
-            // }
+
+            currentSection++;
+            if(currentSection === 3){
+                sectionAnimation.showHelps("up")
+            }else{
+                sectionAnimation.showHelps()
+            }
         },
         prevues: () => {
-            if(currentSection == 1) return;
+            if(currentSection === 1) return;
 
-            sectionAnimation.textAnime()
+            sectionAnimation.textAnime();   
+            sectionAnimation.scrollHandleAnime(true);      
 
-            tl = gsap.to(sections, {
+            prevAnimation = gsap.to(sections, {
                 xPercent: jumpUp,
                 ease: "power3.in", 
                 duration: 1.5,
-                delay: 1,
-                onComplete: () => {
-                    currentSection--;
-                    console.log(currentSection);
-                }
+                delay: 1
             })
 
             currentSection--;
-
-            // if(currentSection == 1){
-            //     GO__DOWN.classList.add("user__help--active");
-            // }else if(currentSection == 2){
-            //     GO__UP.classList.remove("user__help--active");
-            //     GO__DOWN.classList.remove("user__help--active");
-            // }
-        },
-        checkPos: () => {
-            let currentScrollPos = document.documentElement.scrollTop;
-            if(currentScrollPos > lastScrollTop){
-                if(tl !== undefined){
-                    if(!tl.isActive()){
-                        console.log("go next")
-                        sectionAnimation.next()
-                    }
-                }else{
-                    sectionAnimation.next()
-                }
-            }else if(currentScrollPos < lastScrollTop){
-                if(tl !== undefined){
-                    if(!tl.isActive()){
-                        console.log("go prev");
-                        sectionAnimation.prevues();
-                    }
-                }else{
-                    sectionAnimation.prevues();
-                }
+            if(currentSection === 1){
+                sectionAnimation.showHelps("down")
+            }else{
+                sectionAnimation.showHelps()
             }
-            lastScrollTop = currentScrollPos;
         },
         textAnime: () => {
             let sectionsH4 = gsap.utils.toArray(".section--h4");
@@ -122,33 +104,48 @@ const GO__DOWN = document.querySelector(".go__down"),
                     stagger: .1,
                     duration: .3,
                 }, "+=2")
-        }
+        },
+        scrollHandleAnime: (isPrevues) => {
+            gsap.to(scrollHandles, {
+                background: "#19034B",
+                scaleY: 1,
+                duration: 1,
+            })
+
+            gsap.to(scrollHandles[(isPrevues === true) ? (currentSection - 2) : currentSection], {
+                background: "#007cda",
+                scaleY: 1.2,
+                duration: 1,
+                delay: 1
+            })
+        },
+        showHelps: (dir) => {
+            if(dir === "up"){
+                gsap.to(GO__UP, {opacity: 1, duration: .5, delay: 3})
+            }else if(dir == "down"){
+                gsap.to(GO__DOWN, {opacity: 1, duration: .5, delay: 3})
+            }else{
+                gsap.to(GO__UP, {opacity: 0, duration: .5, delay: .5})
+                gsap.to(GO__DOWN, {opacity: 0, duration: .5, delay: .5})
+            }
+        },
+        checkPos: () => {
+            clearTimeout(lastPosWithOutMove);
+            lastPosWithOutMove = setTimeout(() => {
+                let currentScrollTop = document.documentElement.scrollTop;
+                if(currentScrollTop > lastScrollTop){
+                    sectionAnimation.next();
+                }else{
+                    sectionAnimation.prevues();
+                }
+                lastScrollTop = currentScrollTop;
+            }, 200);
+        },
     }
 
     window.addEventListener('scroll', () => {
         sectionAnimation.checkPos()
     })
-
-//             onUpdate: (self) => {
-//                 currentPercentProgress = self.progress.toFixed(2) * 100
-                
-//                 if(currentPercentProgress < 15){
-//                     GO__DOWN.classList.add("user__help--active");
-//                     GO__UP.classList.remove("user__help--active");
-//                 }else if(currentPercentProgress > 85){
-//                     GO__UP.classList.add("user__help--active");
-//                     GO__DOWN.classList.remove("user__help--active");
-//                 }else{
-//                     GO__UP.classList.remove("user__help--active");
-//                     GO__DOWN.classList.remove("user__help--active");
-    
-//                 }
-                
-//             },
-
-
-
-
 //
 // burger menu events animation
 //
