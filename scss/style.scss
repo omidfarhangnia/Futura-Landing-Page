@@ -9,7 +9,7 @@
 .user__help{
     display: none;
     position: fixed;
-    left: calc(27vw - 5px);
+    right: 5vw;
     bottom: 20vh;
     padding: 10px 5px;
     @media (min-width: 900px) {
@@ -21,12 +21,10 @@
 .go__up{
     color: #ffffff;
     font-family: $roboto__font;
-    display: none;
-    width: 50vw;
     justify-content: center;
     align-items: center;
     span{
-        font-size: 17px;
+        font-size: 20px;
         text-transform: capitalize;
         margin-right: 5px;
     }
@@ -36,8 +34,28 @@
     }
 }
 
-.user__help--active{
+.scroll__handle__container{
+    width: 50vw;
+    height: 10px;
     display: flex;
+    position: fixed;
+    justify-content: space-between;
+    left: 25vw;
+    bottom: 10vh;
+    div{
+        width: 30%;
+        height: 100%;
+        background: #19034B;
+        border-radius: 5px;
+        box-shadow: 0 0 40px #575757;
+    }
+    .active__page{
+        background: #007cda;
+        scale: 1 1.2;
+    }
+    @media (min-width: 900px) {
+        bottom: 5vh;
+    }
 }
 
 .container__parent{

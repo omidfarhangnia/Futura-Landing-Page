@@ -99,7 +99,7 @@ table {
 }
 
 .custom-shape-divider-bottom .shape-fill {
-  fill: #ff8c37;
+  fill: #320063;
 }
 
 .divide__container--links {
@@ -172,7 +172,7 @@ table {
 .user__help {
   display: none;
   position: fixed;
-  left: calc(27vw - 5px);
+  right: 5vw;
   bottom: 20vh;
   padding: 10px 5px;
 }
@@ -186,14 +186,12 @@ table {
 .go__up {
   color: #ffffff;
   font-family: "Roboto", "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  display: none;
-  width: 50vw;
   justify-content: center;
   align-items: center;
 }
 .go__down span,
 .go__up span {
-  font-size: 17px;
+  font-size: 20px;
   text-transform: capitalize;
   margin-right: 5px;
 }
@@ -203,8 +201,30 @@ table {
   height: 20px;
 }
 
-.user__help--active {
+.scroll__handle__container {
+  width: 50vw;
+  height: 10px;
   display: flex;
+  position: fixed;
+  justify-content: space-between;
+  left: 25vw;
+  bottom: 10vh;
+}
+.scroll__handle__container div {
+  width: 30%;
+  height: 100%;
+  background: #19034B;
+  border-radius: 5px;
+  box-shadow: 0 0 40px #575757;
+}
+.scroll__handle__container .active__page {
+  background: #007cda;
+  scale: 1 1.2;
+}
+@media (min-width: 900px) {
+  .scroll__handle__container {
+    bottom: 5vh;
+  }
 }
 
 .container__parent {
