@@ -298,3 +298,13 @@
     font-family: $montserrat__font;
     list-style-position: inside;
 }
+
+.page__loader{
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(#00144f 100%, transparent);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+} 

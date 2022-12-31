@@ -21,6 +21,22 @@ jumpDown = "-=100";
 
 window.addEventListener("load", () => {
     lastScrollTop = document.documentElement.scrollTop;
+    setTimeout(() => {
+        gsap.fromTo(".page__loader", {
+            background: "radial-gradient(#00144f 100%, transparent)",
+        },
+        {
+          background: "radial-gradient(#00144f 0%, transparent)",
+          duration: 1,
+          delay: 1
+        })
+        gsap.to(".page__loader", {
+          opacity: 0,
+          delay: 2,
+          duration: 1,
+          ease: "power4.out"
+        })
+    }, 500);
 })
 
 const GO__DOWN = document.querySelector(".go__down"),

@@ -471,3 +471,13 @@ table {
   font-family: "Montserrat", "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   list-style-position: inside;
 }
+
+.page__loader {
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(#00144f 100%, transparent);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
