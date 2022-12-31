@@ -22,7 +22,9 @@ jumpDown = "-=100";
 window.addEventListener("load", () => {
     lastScrollTop = document.documentElement.scrollTop;
     setTimeout(() => {
-        gsap.fromTo(".page__loader", {
+        let tl = gsap.timeline();
+        tl
+        .fromTo(".page__loader", {
             background: "radial-gradient(#00144f 100%, transparent)",
         },
         {
@@ -30,11 +32,13 @@ window.addEventListener("load", () => {
           duration: 1,
           delay: 1
         })
-        gsap.to(".page__loader", {
+        .to(".page__loader", {
           opacity: 0,
-          delay: 2,
           duration: 1,
           ease: "power4.out"
+        })
+        .set(".page__loader", {
+            zIndex: 0
         })
     }, 500);
 })
