@@ -180,6 +180,9 @@ const GO__DOWN = document.querySelector(".go__down"),
     window.addEventListener("touchend", (event) => {
         touchEndPosition = event.changedTouches[0].clientY;
     
+        if(touchEndPosition < 110) return;
+        // we need this for the time that use press berger menu
+
         timeOut = setTimeout(() => {
             if(touchStartPosition > touchEndPosition){
                 goingNext();

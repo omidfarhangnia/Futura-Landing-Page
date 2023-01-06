@@ -62,6 +62,7 @@ table {
   background: linear-gradient(to bottom, #00144f, #2D6BB6);
   top: 100vh;
   z-index: 2;
+  left: 0;
 }
 @media (min-width: 1000px) {
   .divide__container {
