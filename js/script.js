@@ -9,18 +9,18 @@ gsap.registerPlugin(ScrollTrigger);
 //
 
 let sections = gsap.utils.toArray(".section"), 
-    scrollHandles = gsap.utils.toArray(".scroll__handles"),
-currentPercentProgress = 0, 
-lastScrollTop = 0, 
-nextAnimation,
-prevAnimation,
-lastPosWithOutMove,
+scrollHandles = gsap.utils.toArray(".scroll__handles"),
 currentSection = 1,
-jumpUp = "+=100",
-jumpDown = "-=100";
+sectionAnimation,
+timeOut = null, 
+touchStartPosition = null,
+touchEndPosition = null;
+
+// 
+// page load animation
+// 
 
 window.addEventListener("load", () => {
-    lastScrollTop = document.documentElement.scrollTop;
     setTimeout(() => {
         let tl = gsap.timeline();
         tl
@@ -43,12 +43,12 @@ window.addEventListener("load", () => {
     }, 500);
 })
 
+// 
+// page scrolling
+// 
+
 const GO__DOWN = document.querySelector(".go__down"),
       GO__UP = document.querySelector(".go__up");
-
-    gsap.set(".container__parent", {
-      height: "300vh"
-    })
 
     gsap.set(GO__UP, {
         opacity: 0
@@ -60,86 +60,96 @@ const GO__DOWN = document.querySelector(".go__down"),
       left: 0,
     })
 
-    const sectionAnimation = {
-        next: () => {
-            if(currentSection === 3) return;
+    function goNextSection() {
+        sectionAnimation = gsap.to(".container", {
+            left: "-=100vw",
+            duration: 1.5,
+            delay: 1,
+            ease: "power3.in",
+        })
+        textAnime();
+        activeLink();
+    }
+    
+    function goPrevSection() {
+        sectionAnimation = gsap.to(".container", {
+            left: "+=100vw",
+            duration: 1.5,
+            delay: 1,
+            ease: "power3.in",
+        })
+        textAnime();
+        activeLink();
+    }
 
-            sectionAnimation.textAnime();
-            sectionAnimation.scrollHandleAnime(false);      
-            
-            nextAnimation = gsap.to(sections, {
-                xPercent: jumpDown,
-                ease: "power3.in", 
-                duration: 1.5,
-                delay: 1
-            });
+    function goingNext() {
+        if(currentSection === 3) return;
+        if(sectionAnimation && sectionAnimation.isActive()) return;
+        console.log("is playing")
+        currentSection++;
+        goNextSection();
+        activeLink();
+        if(currentSection === 3){
+            showHelps("up")
+        }else{
+            showHelps()
+        }
+    }
+    
+    function goingPrev() {
+        if(currentSection === 1) return;
+        if(sectionAnimation && sectionAnimation.isActive()) return;
+        console.log("is playing")
+        currentSection--;
+        goPrevSection();
+        activeLink();
+        if(currentSection === 1){
+            showHelps("down")
+        }else{
+            showHelps()
+        }
+    }
 
-            currentSection++;
-            if(currentSection === 3){
-                sectionAnimation.showHelps("up")
-            }else{
-                sectionAnimation.showHelps()
-            }
-        },
-        prevues: () => {
-            if(currentSection === 1) return;
-
-            sectionAnimation.textAnime();   
-            sectionAnimation.scrollHandleAnime(true);      
-
-            prevAnimation = gsap.to(sections, {
-                xPercent: jumpUp,
-                ease: "power3.in", 
-                duration: 1.5,
-                delay: 1
-            })
-
-            currentSection--;
-            if(currentSection === 1){
-                sectionAnimation.showHelps("down")
-            }else{
-                sectionAnimation.showHelps()
-            }
-        },
-        textAnime: () => {
+    function textAnime() {
             let sectionsH4 = gsap.utils.toArray(".section--h4");
             let sectionsH1 = gsap.utils.toArray(".section--h1");
             let sectionsP = gsap.utils.toArray(".section--p");
             let sectionsTakeALook = gsap.utils.toArray(".section--takeALook");
-      
+        
             let textAnimation = gsap.timeline()
             
             textAnimation
-            .to([sectionsH4, sectionsH1, sectionsP, sectionsTakeALook],
-                {
+            .to([sectionsH4, sectionsH1, sectionsP, sectionsTakeALook],{
                     opacity: 0,
                     y: 20,
                     stagger: .1,
                     duration: .3,
-                })
-            .to([sectionsH4, sectionsH1, sectionsP, sectionsTakeALook],
-                {
+            })
+            .to([sectionsH4, sectionsH1, sectionsP, sectionsTakeALook],{
                     opacity: 1,
                     y: 0,
                     stagger: .1,
                     duration: .3,
-                }, "+=2")
-        },
-        scrollHandleAnime: (isPrevues) => {
-            gsap.to(scrollHandles, {
-                background: "#19034B",
-                scaleY: 1,
-                duration: 1,
-            })
+            }, "+=1")
+    };
+    
+    function activeLink() {
+        gsap.to(scrollHandles, {
+            background: "#19034B",
+            scaleY: 1,
+            duration: 1,
+        })
 
-            gsap.to(scrollHandles[(isPrevues === true) ? (currentSection - 2) : currentSection], {
-                background: "#007cda",
-                scaleY: 1.2,
-                duration: 1,
-                delay: 1
-            })
-        },
-        showHelps: (dir) => {
+        gsap.to(scrollHandles[currentSection - 1], {
+            background: "#007cda",
+            scaleY: 1.2,
+            duration: 1,
+            delay: 1
+        })
+    };
+    activeLink();
+
+    function showHelps(dir) {
             if(dir === "up"){
                 gsap.to(GO__UP, {opacity: 1, duration: .5, delay: 3})
             }else if(dir == "down"){
@@ -148,24 +158,37 @@ const GO__DOWN = document.querySelector(".go__down"),
                 gsap.to(GO__UP, {opacity: 0, duration: .5, delay: .5})
                 gsap.to(GO__DOWN, {opacity: 0, duration: .5, delay: .5})
             }
-        },
-        checkPos: () => {
-            clearTimeout(lastPosWithOutMove);
-            lastPosWithOutMove = setTimeout(() => {
-                let currentScrollTop = document.documentElement.scrollTop;
-                if(currentScrollTop > lastScrollTop){
-                    sectionAnimation.next();
-                }else{
-                    sectionAnimation.prevues();
-                }
-                lastScrollTop = currentScrollTop;
-            }, 200);
-        },
     }
 
-    window.addEventListener('scroll', () => {
-        sectionAnimation.checkPos()
-    })
+    function findMouseDir(event) {
+        clearTimeout(timeOut)
+        timeOut = setTimeout(() => {
+            if(event.deltaY > 0){
+                goingNext();
+            }else{
+                goingPrev();
+            }
+        }, 50);
+    }
+
+    window.addEventListener("wheel", findMouseDir);
+    
+    window.addEventListener("touchstart", (event) => {
+        clearTimeout(timeOut);
+        touchStartPosition = event.touches[0].clientY;
+    });
+    window.addEventListener("touchend", (event) => {
+        touchEndPosition = event.changedTouches[0].clientY;
+    
+        timeOut = setTimeout(() => {
+            if(touchStartPosition > touchEndPosition){
+                goingNext();
+            }else{
+                goingPrev();
+            }
+        }, 50);
+    });
+
 //
 // burger menu events animation
 //
@@ -225,7 +248,6 @@ links.forEach((element) => {
 // 
 
 gsap.set([".go__down svg", ".go__up svg"], {y: 0})
-
 let goDownAnime = gsap.to(".go__down svg", {
     keyframes: {
         y: [0, 10, 0]
@@ -235,8 +257,6 @@ let goDownAnime = gsap.to(".go__down svg", {
     ease: "power4.out",
     repeat: -1,
 })
-
-
 let goUpAnime = gsap.to(".go__up svg", {
     keyframes: {
         y: [0, -10, 0]
